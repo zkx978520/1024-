@@ -17,48 +17,56 @@ const router = new VueRouter({
     {
       path: "/",
       redirect: "/home",
+      meta: { footShow: true },
     },
     // 注册
     {
       path: "/register",
       name: "Register",
       component: Register,
+      meta: { footShow: false },
     },
     // 登录
     {
       path: "/login",
       name: "Login",
       component: Login,
+      meta: { footShow: false },
     },
     // 首页
     {
       path: "/home",
       name: "Home",
       component: Home,
+      meta: { footShow: true },
     },
     //详情页
     {
       path: "/detail/:id",
       name: "Detail",
       component: Detail,
+      meta: { footShow: true },
     },
     //分类页
     {
       path: "/fenlei",
       name: "Fenlei",
       component: Fenlei,
+      meta: { footShow: true },
     },
     //购物车页
     {
       path: "/cart",
       name: "Cart",
       component: Cart,
+      meta: { footShow: true },
     },
     //用户信息页
     {
       path: "/user",
       name: "User",
       component: User,
+      meta: { footShow: true },
     },
   ],
 });
