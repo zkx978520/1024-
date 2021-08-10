@@ -1,5 +1,5 @@
 <template>
-  <div class="">用户</div>
+  <div class="">我的</div>
 </template>
 
 <script>
