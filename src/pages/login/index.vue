@@ -1,10 +1,18 @@
 <template>
   <div class="register">
-    <div class="top">
+    <!-- <div class="top">
       <span class="fh"> <van-icon name="arrow-left" @click="gohome"/></span>
       <span class="dl">用户登录</span>
       <span class="zc" @click="goregister">注册</span>
-    </div>
+    </div> -->
+    <van-nav-bar
+      title="标题"
+      left-text="返回"
+      right-text="注册"
+      left-arrow
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+    />
     <!--  -->
 
     <van-form @submit="onSubmit" class="from">
@@ -34,6 +42,7 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 export default {
   components: {},
   data() {
@@ -50,13 +59,23 @@ export default {
     onSubmit(value) {
       console.log(value);
     },
-    gohome() {
+    //
+    onClickLeft() {
+      Toast("返回");
       this.$router.push("/home");
     },
-    //
-    goregister() {
+    onClickRight() {
+      Toast("注册");
       this.$router.push("/register");
     },
+    //
+    // gohome() {
+    //   this.$router.push("/home");
+    // },
+    // //
+    // goregister() {
+    //   this.$router.push("/register");
+    // },
   },
   created() {},
   mounted() {},
