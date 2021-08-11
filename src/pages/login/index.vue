@@ -1,12 +1,12 @@
 <template>
-  <div class="register">
+  <div class="login">
     <!-- <div class="top">
       <span class="fh"> <van-icon name="arrow-left" @click="gohome"/></span>
       <span class="dl">用户登录</span>
       <span class="zc" @click="goregister">注册</span>
     </div> -->
     <van-nav-bar
-      title="标题"
+      title="登录界面"
       left-text="返回"
       right-text="注册"
       left-arrow
@@ -18,7 +18,7 @@
     <van-form @submit="onSubmit" class="from">
       <van-field
         v-model="username"
-        name="用户名"
+        name="userName"
         label="用户名"
         placeholder="用户名"
         :rules="[{ required: true, message: '请填写用户名' }]"
@@ -26,7 +26,7 @@
       <van-field
         v-model="password"
         type="password"
-        name="密码"
+        name="password"
         label="密码"
         placeholder="密码"
         :rules="[{ required: true, message: '请填写密码' }]"
@@ -42,12 +42,13 @@
 </template>
 
 <script>
+import { loginApi } from "../../api/user";
+import { setToken } from "../../utils/auth";
 import { Toast } from "vant";
 export default {
   components: {},
   data() {
     return {
-      name: "",
       username: "",
       password: "",
     };
@@ -56,8 +57,14 @@ export default {
   watch: {},
 
   methods: {
-    onSubmit(value) {
-      console.log(value);
+    async onSubmit(values) {
+      const result = await loginApi({ ...values });
+      console.log(result);
+      if (result.data.code === "success") {
+        setToken(result.data.token);
+        Toast.success("登陆成功");
+        this.$router.push("/");
+      }
     },
     //
     onClickLeft() {
