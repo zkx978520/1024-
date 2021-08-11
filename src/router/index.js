@@ -8,6 +8,12 @@ import User from "../pages/user";
 import Register from "../pages/register";
 import Login from "../pages/login";
 import Detail from "../pages/detail";
+import wodezhuye from "../pages/user/wodezhuye";
+import liaotian from "../pages/user/liaotian";
+import shoucang from "../pages/user/shoucang";
+import guanzhu from "../pages/user/guanzhu";
+import dingdan from "../pages/user/dingdan";
+import xiugai from "../pages/user/xiugai";
 //
 Vue.use(VueRouter);
 //
@@ -66,9 +72,46 @@ const router = new VueRouter({
       path: "/user",
       name: "User",
       component: User,
-      meta: { footShow: true },
+      meta: { footShow: true, requiresAuth: true },
+    },
+    {
+      path: "/user/wodezhuye",
+      name: "wodezhuye",
+      component: wodezhuye,
+    },
+    {
+      path: "/user/liaotian",
+      name: "liaotian",
+      component: liaotian,
+    },
+    {
+      path: "/user/shoucang",
+      name: "shoucang",
+      component: shoucang,
+    },
+    {
+      path: "/user/guanzhu",
+      name: "guanzhu",
+      component: guanzhu,
+    },
+    {
+      path: "/user/dingdan",
+      name: "dingdan",
+      component: dingdan,
+    },
+    {
+      path: "/user/xiugai",
+      name: "xiugai",
+      component: xiugai,
     },
   ],
 });
+// 解决Vue-Router升级导致的Uncaught(in promise) navigation guard问题
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject);
+  return originalPush.call(this, location).catch((err) => err);
+};
 //
 export default router;
