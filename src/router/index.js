@@ -21,6 +21,9 @@ import tuihuo from "../pages/user/tuihuo";
 import yanwu from "../pages/user/yanwu";
 import tunhuo from "../pages/user/tunhuo";
 import huanxin from "../pages/user/huanxin";
+import Adress from "../pages/adress";
+import upAdress from "../pages/upadress";
+import myAdress from "../pages/myadress";
 
 //
 Vue.use(VueRouter);
@@ -82,6 +85,29 @@ const router = new VueRouter({
       component: Cart,
       meta: { footShow: true },
     },
+    //
+    //
+    //添加收获地址
+    {
+      path: "/adress",
+      name: "Adress",
+      component: Adress,
+    },
+    //修改收获地址
+    {
+      path: "/upadress/:id",
+      name: "upAdress",
+      component: upAdress,
+    },
+    //收获地址列表
+    {
+      path: "/myadress",
+      name: "myAdress",
+      component: myAdress,
+    },
+    //
+    //
+    //
     //用户信息页
     {
       path: "/user",
