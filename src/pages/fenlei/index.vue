@@ -33,18 +33,15 @@
     </div>
     <!-- middle -->
     <div class="middle">
-      <div class="midItem" v-for="item in productsfenlei" :key="item._id">
+      <div
+        class="midItem"
+        v-for="item in productsfenlei"
+        :key="item._id"
+        @click="doclassify(item.name)"
+      >
         <img :src="item.coverImg" alt="" />
         <p>{{ item.name }}</p>
       </div>
-      <!-- <div class="midItem" v-for="item in productsfenlei" :key="item._id">
-        <img :src="item.coverImg" alt="" />
-        <p>{{ item.name }}</p>
-      </div>
-      <div class="midItem" v-for="item in productsfenlei" :key="item._id">
-        <img :src="item.coverImg" alt="" />
-        <p>{{ item.name }}</p>
-      </div> -->
     </div>
     <div class="shoplist">
       <van-list
@@ -54,7 +51,12 @@
         @load="onLoad"
       >
         <img width="100%" src="../../assets/image/like.png" alt="" />
-        <div class="list" v-for="item in onSearch(value)" :key="item._id">
+        <div
+          class="list"
+          v-for="item in onSearch(value)"
+          :key="item._id"
+          @click="godetail(item._id)"
+        >
           <img :src="item.coverImg" alt="" />
           <p class="name">{{ item.name }}</p>
           <p class="money">￥{{ item.price }}</p>
@@ -125,6 +127,17 @@ export default {
         }
       });
       return newproducts;
+    },
+
+    // 跳转到分类页
+    doclassify(name) {
+      console.log(name);
+      this.$router.push("/classify/" + name);
+    },
+
+    // 跳转到详情
+    godetail(id) {
+      this.$router.push("/detail/" + id);
     },
   },
   created() {

@@ -11,29 +11,6 @@
       <van-search v-model="value" placeholder="请输入搜索关键词" />
       <img class="info" src="../../assets/image/info.png" alt="" />
     </div>
-    <!-- <div class="middle">
-      <div class="midItem" v-for="item in productsfenlei" :key="item._id">
-        <img :src="item.coverImg" alt="" />
-        <p>{{ item.name }}</p>
-      </div>
-    </div> -->
-
-    <!-- <div class="middle">
-      <van-sidebar v-model="activeKey" @change="changeTab()">
-        <van-sidebar-item
-          :title="item.name"
-          v-for="item in productsfenlei"
-          :key="item._id"
-        />
-      </van-sidebar>
-      <div class="ullist">
-        <ul>
-          <li v-for="product in products" :key="product._id">
-            <p>{{ product.name }}</p>
-          </li>
-        </ul>
-      </div>
-    </div> -->
 
     <van-tabs v-model="active" @click="changeTab">
       <van-tab
@@ -42,7 +19,11 @@
         :key="item._id"
       >
         <ul>
-          <li v-for="product in productsfls" :key="product._id">
+          <li
+            v-for="product in productsfls"
+            :key="product._id"
+            @click="godetail(product._id)"
+          >
             <img :src="product.coverImg" alt="" />
             <p>{{ product.name }}</p>
           </li>

@@ -63,10 +63,10 @@ const router = new VueRouter({
     },
     //分类页--------
     {
-      path: "/classify",
+      path: "/classify/:name",
       name: "classify",
       component: classify,
-      meta: { footShow: true },
+      meta: { footShow: false },
     },
     //购物车页
     {
