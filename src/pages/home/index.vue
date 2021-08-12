@@ -8,41 +8,48 @@
     </div>
     <div class="wrap">
       <img class="manage" src="../../assets/image/manage.png" alt="" />
-      <!-- <van-search v-model="value" placeholder="请输入搜索关键词" /> -->
       <van-search v-model="value" placeholder="请输入搜索关键词" />
-      <!-- <input type="text" v-model="value" class="van-search" /> -->
       <img class="info" src="../../assets/image/info.png" alt="" />
     </div>
-    <div class="middle">
+    <!-- <div class="middle">
       <div class="midItem" v-for="item in productsfenlei" :key="item._id">
         <img :src="item.coverImg" alt="" />
         <p>{{ item.name }}</p>
       </div>
-      <!-- <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
+    </div> -->
+
+    <!-- <div class="middle">
+      <van-sidebar v-model="activeKey" @change="changeTab()">
+        <van-sidebar-item
+          :title="item.name"
+          v-for="item in productsfenlei"
+          :key="item._id"
+        />
+      </van-sidebar>
+      <div class="ullist">
+        <ul>
+          <li v-for="product in products" :key="product._id">
+            <p>{{ product.name }}</p>
+          </li>
+        </ul>
       </div>
-      <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
-      </div>
-      <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
-      </div>
-      <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
-      </div>
-      <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
-      </div>
-      <div class="midItem">
-        <img src="../../assets/image/item.png" alt="" />
-        <p>女装</p>
-      </div> -->
-    </div>
+    </div> -->
+
+    <van-tabs v-model="active" @click="changeTab">
+      <van-tab
+        :title="item.name"
+        v-for="item in productsfenlei"
+        :key="item._id"
+      >
+        <ul>
+          <li v-for="product in productsfls" :key="product._id">
+            <img :src="product.coverImg" alt="" />
+            <p>{{ product.name }}</p>
+          </li>
+        </ul>
+      </van-tab>
+    </van-tabs>
+
     <div class="shoplist">
       <van-list
         v-model="loading"
@@ -50,7 +57,12 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <div class="list" v-for="item in onSearch(value)" :key="item._id">
+        <div
+          class="list"
+          v-for="item in onSearch(value)"
+          :key="item._id"
+          @click="godetail(item._id)"
+        >
           <img :src="item.coverImg" alt="" />
           <p>{{ item.name }}</p>
           <div class="listbottom">
@@ -65,7 +77,9 @@
 
 <script>
 import { reqProducts, reqProductsfenlai } from "../../api/products";
+// import { addToCart } from "../../api/cart";
 // import { Toast } from "vant";
+// import { Notify } from "vant";
 export default {
   components: {},
   data() {
@@ -77,6 +91,9 @@ export default {
       finished: false,
       page: 1,
       productsfenlei: [],
+      activeKey: 0, //侧边导航栏
+      active: 0,
+      productsfls: [],
     };
   },
   computed: {},
@@ -109,6 +126,15 @@ export default {
       const result = await reqProductsfenlai();
       console.log(result);
       this.productsfenlei = result.data.categories;
+      const res = await reqProducts({ name: this.productsfenlei[0].name });
+      this.productsfls = res.data.products;
+    },
+
+    async changeTab(name, title) {
+      console.log(name, title);
+      const result = await reqProducts({ name: title });
+      console.log(result);
+      this.productsfls = result.data.products;
     },
 
     // 搜索
@@ -119,6 +145,19 @@ export default {
         }
       });
       return newproducts;
+    },
+
+    // 侧边导航栏
+    // changeTab(index) {
+    //   Notify({ type: "primary", message: index });
+    //   // console.log(index);
+    //   console.log(11111);
+    // },
+
+    // 跳转详情
+    godetail(id) {
+      console.log(id);
+      this.$router.push("/detail/" + id);
     },
   },
   created() {
@@ -175,7 +214,36 @@ export default {
 }
 
 /* middle */
-.middle {
+.van-tabs {
+  padding: 0 10px;
+}
+.van-tabs ul {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.van-tabs ul li {
+  width: 18%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2%;
+  margin-bottom: 20px;
+
+  /* justify-content: start;
+  margin: 10px 0; */
+}
+.van-tabs ul li img {
+  width: 100%;
+}
+.van-tabs ul li p {
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+/* .middle {
   width: 100%;
   padding: 0 10px;
   display: flex;
@@ -195,7 +263,8 @@ export default {
 }
 .midItem p {
   margin-top: 10px;
-}
+} */
+
 /* shoplist */
 .shoplist {
   width: 100%;
@@ -245,5 +314,18 @@ export default {
   padding: 4px;
   border-radius: 6px;
   line-height: 1;
+}
+
+.middle {
+  position: relative;
+}
+.van-sidebar {
+  display: inline-block;
+}
+.middle .ullist {
+  position: absolute;
+  left: 80px;
+  top: 0;
+  width: 100%;
 }
 </style>
