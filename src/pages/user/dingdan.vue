@@ -60,7 +60,6 @@
 </template>
 shopping-cart-o
 <script>
-import { Toast } from "vant";
 export default {
   components: {},
   data() {
@@ -75,9 +74,7 @@ export default {
     onClickLeft() {
       this.$router.push("/user");
     },
-    onClickRight() {
-      Toast("按钮");
-    },
+    onClickRight() {},
   },
   created() {},
   mounted() {},

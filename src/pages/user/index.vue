@@ -5,6 +5,7 @@
     <div class="con" v-if="cont" @click="xiugai">
       <img :src="cont.avatar" alt="" class="pic" />
       <p class="nam">{{ cont.nickName }}</p>
+      <span class="mn">编辑资料</span>
     </div>
     <!--  -->
     <van-tabbar v-model="active" class="str">
@@ -33,8 +34,10 @@
         />
       </div>
       <div class="quan">
-        <p>卡券红包&nbsp;&nbsp;&nbsp;&nbsp; <span>6张活动券></span></p>
-        <p>补贴保障&nbsp;&nbsp;&nbsp; <span>退货补运费></span></p>
+        <p @click="gohb">
+          卡券红包&nbsp;&nbsp;&nbsp;&nbsp; <span>我的活动券></span>
+        </p>
+        <p @click="goyf">补贴保障&nbsp;&nbsp;&nbsp; <span>退货补运费></span></p>
         <p>我的钱包&nbsp;&nbsp;&nbsp; <span>白付美在这></span></p>
       </div>
     </div>
@@ -114,6 +117,14 @@ export default {
     xiugai() {
       this.$router.push("/user/xiugai");
     },
+    // 跳转我的优惠券
+    gohb() {
+      this.$router.push("/user/hongbao");
+    },
+    //跳转运费
+    goyf() {
+      this.$router.push("/user/yunfei");
+    },
   },
   created() {
     this.pro();
@@ -155,6 +166,12 @@ export default {
   margin-left: 44%;
   margin-top: 10px;
   font-size: 20px;
+}
+.mn {
+  float: left;
+  font-size: 16px;
+  margin-left: 135px;
+  margin-top: 20px;
 }
 /* 主页收藏关注消息 */
 .str {
@@ -199,13 +216,16 @@ export default {
   border-radius: 10px;
 }
 .quan p {
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 15px;
-  padding-bottom: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #666;
 }
 .quan span {
-  font-size: 14px;
+  font-size: 12px;
+  float: right;
   color: #999;
 }
 /*  */
@@ -224,14 +244,16 @@ export default {
   background: #fff;
 }
 .zya p {
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 20px;
+  margin-left: 5px;
   padding-bottom: 10px;
   border-bottom: 1px solid #666;
 }
 .zya span {
   float: right;
-  font-size: 14px;
+  margin-right: 5px;
+  font-size: 12px;
   color: #999;
 }
 .str1 {

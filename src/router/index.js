@@ -15,6 +15,13 @@ import shoucang from "../pages/user/shoucang";
 import guanzhu from "../pages/user/guanzhu";
 import dingdan from "../pages/user/dingdan";
 import xiugai from "../pages/user/xiugai";
+import hongbao from "../pages/user/hongbao";
+import yunfei from "../pages/user/yunfei";
+import tuihuo from "../pages/user/tuihuo";
+import yanwu from "../pages/user/yanwu";
+import tunhuo from "../pages/user/tunhuo";
+import huanxin from "../pages/user/huanxin";
+
 //
 Vue.use(VueRouter);
 //
@@ -111,6 +118,36 @@ const router = new VueRouter({
       path: "/user/xiugai",
       name: "xiugai",
       component: xiugai,
+    },
+    {
+      path: "/user/hongbao",
+      name: "hongbao",
+      component: hongbao,
+    },
+    {
+      path: "/user/yunfei",
+      name: "yunfei",
+      component: yunfei,
+    },
+    {
+      path: "/user/tuihuo",
+      name: "tuihuo",
+      component: tuihuo,
+    },
+    {
+      path: "/user/yanwu",
+      name: "yanwu",
+      component: yanwu,
+    },
+    {
+      path: "/user/tunhuo",
+      name: "tunhuo",
+      component: tunhuo,
+    },
+    {
+      path: "/user/huanxin",
+      name: "huanxin",
+      component: huanxin,
     },
   ],
 });
