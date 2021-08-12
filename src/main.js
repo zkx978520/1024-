@@ -4,6 +4,7 @@ import Vant from "vant";
 import "vant/lib/index.css";
 import router from "./router";
 import "./assets/css/reset.css";
+import "./assets/icon/iconfont.css";
 import { Search } from "vant";
 import { Image as VanImage } from "vant";
 
