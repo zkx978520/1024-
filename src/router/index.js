@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 //
 import Home from "../pages/home";
 import Fenlei from "../pages/fenlei";
+import classify from "../pages/classify";
 import Cart from "../pages/cart";
 import User from "../pages/user";
 import Register from "../pages/register";
@@ -58,6 +59,13 @@ const router = new VueRouter({
       path: "/fenlei",
       name: "Fenlei",
       component: Fenlei,
+      meta: { footShow: true },
+    },
+    //分类页--------
+    {
+      path: "/classify",
+      name: "classify",
+      component: classify,
       meta: { footShow: true },
     },
     //购物车页
