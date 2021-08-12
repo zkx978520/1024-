@@ -51,7 +51,7 @@ const router = new VueRouter({
       path: "/detail/:id",
       name: "Detail",
       component: Detail,
-      meta: { footShow: true },
+      meta: { footShow: false },
     },
     //分类页
     {
