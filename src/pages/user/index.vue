@@ -24,7 +24,7 @@
     </van-tabbar>
     <!--  -->
     <div class="wxx">
-      <div class="cart">
+      <div class="cart" @click="gocart">
         <span>购物车</span>
         <van-image
           width="160"
@@ -124,6 +124,10 @@ export default {
     //跳转运费
     goyf() {
       this.$router.push("/user/yunfei");
+    },
+    // 跳转购物车
+    gocart() {
+      this.$router.push("/cart");
     },
   },
   created() {

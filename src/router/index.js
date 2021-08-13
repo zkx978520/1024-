@@ -83,7 +83,7 @@ const router = new VueRouter({
       path: "/cart",
       name: "Cart",
       component: Cart,
-      meta: { footShow: true },
+      meta: { footShow: true, requiresAuth: true },
     },
     //
     //

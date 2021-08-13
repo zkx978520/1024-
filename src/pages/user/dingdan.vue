@@ -11,13 +11,32 @@
     <!--  -->
     <van-tabs v-model="active">
       <van-tab title="待付款">
-        <van-image
+        <!-- <van-image
           width="257"
           height="129"
           class="pic1"
           src="https://s10.mogucdn.com/new1/v1/bmisc/b22401c122fbedee3b1f5d708127e9f0/194500731154.png"
         />
-        <p class="p1">还没有相关订单哦!</p>
+        <p class="p1">还没有相关订单哦!</p> -->
+        <van-swipe-cell v-for="item in list" :key="item._id">
+          <van-card
+            :num="item.quantity"
+            :price="item.product.price"
+            :title="item.product.name"
+            class="goods-card"
+            :thumb="item.product.coverImg"
+          />
+          <template #right>
+            <van-button
+              square
+              text="删除"
+              type="danger"
+              class="delete-button"
+              @click="del(item._id)"
+            />
+          </template>
+        </van-swipe-cell>
+        <!--  -->
       </van-tab>
       <van-tab title="待发货"
         ><van-image
@@ -58,13 +77,15 @@
     </van-tabs>
   </div>
 </template>
-shopping-cart-o
 <script>
+import { loadCartlist } from "../../api/cart";
+import { dele } from "../../utils/request";
 export default {
   components: {},
   data() {
     return {
       active: 0,
+      list: [],
     };
   },
   computed: {},
@@ -75,8 +96,21 @@ export default {
       this.$router.push("/user");
     },
     onClickRight() {},
+    // 获取用户购物车数据
+    async shuju() {
+      const result = await loadCartlist({});
+      this.list = result.data;
+    },
+    // 删除购物车数据
+    async del(id) {
+      const result = await dele("/api/v1/shop_carts/" + id);
+      console.log(result);
+      this.shuju();
+    },
   },
-  created() {},
+  created() {
+    this.shuju();
+  },
   mounted() {},
 };
 </script>
@@ -90,5 +124,14 @@ export default {
 .pic1 {
   margin-top: 50px;
   margin-left: 60px;
+}
+
+.goods-card {
+  margin: 0;
+  background-color: #fff;
+}
+
+.delete-button {
+  height: 100%;
 }
 </style>
