@@ -1,4 +1,4 @@
-import { post, get, dele } from "../utils/request";
+import { post, get, dele,put } from "../utils/request";
 
 // 提交订单
 export const addorder = (data) => post("/api/v1/orders", data);
@@ -15,17 +15,17 @@ export const delOrder = (id) => dele("/api/v1/orders/" + id);
 // 删除多个订单
 export const delOrderS = (ids) => post("/api/v1/orders/" + ids);
 
-// 收货地址列表
-export const adressList = () => get("/api/v1/addresses");
-
-// 获取单条收货地址
-export const adress = (id) => get("/api/v1/addresses/" + id);
-
 // 收货地址新增
-export const addAdress = (data) => post("/api/v1/addresses/", data);
+export const addadress=(data)=>post('/api/v1/addresses',data)
 
-// 收货地址修改
-// export const addAdress=(id,data)=>put('/api/v1/addresses/'+id,data)
+// 收货地址列表
+export const adresslist=()=>get('/api/v1/addresses')
 
-// 收货地址删除
-// export const addAdress=(id)=>post('/api/v1/addresses/'+id)
+// 根据id获取单条收货地址
+export const adressload=(id)=>get('/api/v1/addresses/'+id)
+
+// 修改收货地址
+export const updateadress=(id,data)=>put('/api/v1/addresses/'+id,data)
+
+// 删除收货地址
+export const deladress=(id)=>dele('/api/v1/addresses/'+id)

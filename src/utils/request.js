@@ -38,6 +38,6 @@ export const post = (url, data) => instance.post(url, data);
 // 封装dele
 export const dele = (url, params) => instance.delete(url, { params });
 // 封装put
-export const put = (url, params) => instance.put(url, { params });
+export const put = (url, params) => instance.put(url,  params );
 
 export default instance;
