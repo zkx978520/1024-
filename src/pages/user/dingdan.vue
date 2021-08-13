@@ -37,23 +37,24 @@
       <div class="buy-shop">
         <van-tabs v-model="active">
           <van-tab title="待付款">
-            <van-swipe-cell v-for="item in list" :key="item._id">
-              <!-- <van-card
-                :num="item.quantity"
-                :price="item.product.price"
-                :title="item.product.name"
-                class="goods-card"
-                :thumb="item.product.coverImg"
-              /> -->
-              <!-- 商品卡片 -->
+            <van-swipe-cell v-for="item in newlist" :key="item._id">
               <van-card
+                :num="item.quantity"
+                :price="item.price"
+                :desc="item.order"
+                :title="item.user"
+                class="goods-card"
+                thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
+              />
+              <!-- 商品卡片 -->
+              <!-- <van-card
                 v-for="(item, index) in orderSingleItemDetails"
                 :key="index"
                 :num="item.quantity"
                 :price="item.price"
                 :title="item.product.name"
                 :thumb="item.product.coverImg"
-              />
+              /> -->
               <template #right>
                 <van-button
                   square
@@ -113,7 +114,9 @@
 </template>
 
 <script>
-import { adresslist, getOrderlist, getOrderItem } from "../../api/order";
+import { adresslist } from "../../api/order";
+import { orderList } from "../../api/order";
+import { orderDet } from "../../api/order";
 // import { addorder } from "../../api/order";
 // import { get } from '../../utils/request';
 // import { Toast } from 'vant';
@@ -123,6 +126,7 @@ export default {
     return {
       active: 0,
       list: [],
+      newlist: [],
       show: false, //地址面板状态
       actions: [], // 地址信息-面板选项列表
       actObj: {}, // 回调地址
@@ -159,7 +163,7 @@ export default {
     //   订单列表
     async orderList() {
       console.log(111);
-      const res = await getOrderlist({ per: 10 });
+      const res = await orderList({ per: 10 });
       console.log(res);
       console.log("订单列表", res.data.orders);
       let arr = [];
@@ -170,18 +174,23 @@ export default {
       //   console.log("订单数组", this.orderIdArr);
       this.orderid = this.orderIdArr[0].id;
       console.log("当前订单id：", this.orderid);
-      this.orderItem(); //   订单详情
+      this.orderDet(); //   订单详情
     },
     //   订单详情
-    async orderItem() {
-      const res = await getOrderItem(this.orderid);
+    async orderDet() {
+      const res = await orderDet(this.orderid);
       this.orderSingleItem = res.data;
       this.orderSingleItemDetails = res.data.details;
       this.orderPrice = res.data.order.price;
-      console.log("订单详情", this.orderSingleItem);
-      console.log("订单详情中的多少个商品", this.orderSingleItemDetails);
-      console.log("此订单总价", this.orderPrice);
+      this.newlist = res.data.details;
+      console.log(this.newlist);
     },
+    // 商品详情
+
+
+
+    
+    // 
     onClickLeft() {
       //   Toast("返回");
       this.$router.go(-1); // 返回上一页
