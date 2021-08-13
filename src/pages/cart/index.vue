@@ -111,15 +111,31 @@ export default {
     watch: {},
     
     methods: {
-      //  加载购物车列表
+       //  加载购物车列表
         async getcartlist() {
+              let token=localStorage.getItem("token")
+            console.log(token);
+        if (token==null) {
+            this.$router.push("/login")
+        }else{
           const result = await loadCartlist();
           console.log(result);
           this.list = result.data;
           if (result.data.length==0) {
             this.play=true
           }
+        }
+          
         },
+      //  加载购物车列表
+        // async getcartlist() {
+        //   const result = await loadCartlist();
+        //   console.log(result);
+        //   this.list = result.data;
+        //   if (result.data.length==0) {
+        //     this.play=true
+        //   }
+        // },
 
         // 更新购物车数量
       async updatePro(id, num) {

@@ -146,9 +146,12 @@ export default {
         },
 
         async addCart(){
-        //    Toast.success('成功加入购物车');
-        //    this.show=false
-           const result=await post("/api/v1/shop_carts",
+            let token=localStorage.getItem("token")
+            console.log(token);
+        if (token==null) {
+            this.$router.push("/login")
+        }else{
+            const result=await post("/api/v1/shop_carts",
            {product :this.id,
             quantity:this.value })
             console.log(result);
@@ -156,7 +159,21 @@ export default {
                 Toast.success('成功加入购物车');
                 this.show=false
             }
+        }
         },
+
+        // async addCart(){
+        // //    Toast.success('成功加入购物车');
+        // //    this.show=false
+        //    const result=await post("/api/v1/shop_carts",
+        //    {product :this.id,
+        //     quantity:this.value })
+        //     console.log(result);
+        //     if (result.data.code==="success") {
+        //         Toast.success('成功加入购物车');
+        //         this.show=false
+        //     }
+        // },
         // 跳转到home
         gohome(){
             this.$router.push("/home")
