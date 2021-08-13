@@ -5,7 +5,7 @@
         <div class="header">
             <p class="iconfont icon-houtui" @click="goback"></p>
             <p class="p2">购物车({{list.length}})</p>
-            <p class="p3" @click="delcarts">删除&nbsp;<span class="iconfont icon-msg"></span></p>
+            <p class="p3" @click="delshow">管理&nbsp;<span class="iconfont icon-msg"></span></p>
         </div>
         <!-- 商品列表-->
         <ul>
@@ -39,6 +39,11 @@
             <van-checkbox v-model="checked" checked-color="#ee0a24">全选</van-checkbox>
           </van-submit-bar>
         </div>
+        <!-- 删除 -->
+        <div class="del" v-show="flag">
+          <van-checkbox  class="allcheck" v-model="checked" checked-color="#ee0a24">全选</van-checkbox>
+          <van-button class="delbtn" type="danger" round @click="delcarts">确&nbsp;定</van-button>
+        </div>
     </div>
 </template>
 
@@ -55,6 +60,7 @@ export default {
         return {
           list:[],
           play:false,
+          flag:false,
         };
     },
     computed: {
@@ -158,11 +164,15 @@ export default {
       console.log(result);
      },
     //  批量删除
+       delshow(){
+      this.flag=true
+    },
       async delcarts(){
           const result=await post("/api/v1/shop_carts/delmany",
            {ids:this.selectId})
            console.log(result);
            await this.getcartlist();
+           this.flag=false;
       },
       // 返回上一页
       goback(){
@@ -269,5 +279,26 @@ html{
    .bottom-button {
     width: 160px;
     height: 40px;
+  }
+   /* 删除模块 */
+  .del{
+    width: 355.33px;
+    height: 50px;
+    padding: 0 16px;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+     display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .del .allcheck{
+    font-size: 16px;
+  }
+   .del .delbtn{
+     width: 120px;
+    font-size: 20px;
   }
 </style>
