@@ -5,7 +5,7 @@
       <p class="iconfont icon-houtui" @click="goback"></p>
       <p class="p2">购物车({{ list.length }})</p>
       <p class="p3" @click="delshow">
-        管理&nbsp;<span class="iconfont icon-msg"></span>
+        {{ msg }}&nbsp;<span class="iconfont icon-msg"></span>
       </p>
     </div>
     <!-- 商品列表-->
@@ -76,7 +76,7 @@
         >全选</van-checkbox
       >
       <van-button class="delbtn" type="danger" round @click="delcarts"
-        >确&nbsp;定</van-button
+        >删&nbsp;除</van-button
       >
     </div>
   </div>
@@ -96,6 +96,7 @@ export default {
       play: false,
       flag: false,
       show: false,
+      msg: "管理",
       chosenAddressId: "1",
       addressList: [],
       getAddressByIdList: [],
@@ -191,7 +192,13 @@ export default {
 
     //  批量删除
     delshow() {
-      this.flag = true;
+      if (this.msg == "管理") {
+        this.flag = true;
+        this.msg = "完成";
+      } else {
+        this.flag = false;
+        this.msg = "管理";
+      }
     },
     async delcarts() {
       const result = await post("/api/v1/shop_carts/delmany", {
@@ -199,7 +206,7 @@ export default {
       });
       console.log(result);
       await this.getcartlist();
-      this.flag = false;
+      // this.flag = false;
     },
     // 返回上一页
     goback() {
@@ -406,6 +413,7 @@ html {
 }
 .del .delbtn {
   width: 120px;
-  font-size: 20px;
+  height: 40px;
+  font-size: 16px;
 }
 </style>
